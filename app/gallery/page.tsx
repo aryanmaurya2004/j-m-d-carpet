@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { supabase, Product, Category } from '@/lib/supabase';
 import ProductCard from '@/components/ProductCard';
@@ -17,12 +17,7 @@ export default function Gallery() {
   const [selectedCategory, setSelectedCategory] = useState<string>(categoryParam || 'all');
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchCategories();
-    fetchProducts();
-  }, [selectedCategory]);
-
-  async function fetchCategories() {
+  const fetchCategories = useCallback(async () => {
     const { data, error } = await supabase
       .from('categories')
       .select('*');
@@ -30,9 +25,9 @@ export default function Gallery() {
     if (!error && data) {
       setCategories(data);
     }
-  }
+  }, []);
 
-  async function fetchProducts() {
+  const fetchProducts = useCallback(async () => {
     setLoading(true);
     let query = supabase.from('products').select('*');
 
@@ -49,7 +44,15 @@ export default function Gallery() {
       setProducts(data);
     }
     setLoading(false);
-  }
+  }, [selectedCategory, categories]);
+
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 via-white to-gray-50">

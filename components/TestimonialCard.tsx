@@ -37,7 +37,7 @@ export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
           />
         ))}
       </div>
-      <p className="text-gray-700 leading-relaxed italic">"{testimonial.review_text}"</p>
+      <p className="text-gray-700 leading-relaxed italic">&quot;{testimonial.review_text}&quot;</p>
     </div>
   );
 }

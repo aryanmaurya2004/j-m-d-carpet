@@ -79,7 +79,7 @@ export default async function Home() {
                 <Sparkles className="w-4 h-4" />
                 <span className="text-sm font-medium">Premium Handcrafted Quality</span>
               </div>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
                 Created Handmade Rugs
                 <span className="block text-amber-400 mt-2">For Your Home</span>
               </h1>
@@ -109,8 +109,8 @@ export default async function Home() {
 
       <section className="py-16 bg-gradient-to-r from-amber-700 to-amber-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex items-start space-x-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left space-y-4 sm:space-y-0 sm:space-x-4">
               <div className="bg-white/20 p-4 rounded-lg backdrop-blur-sm flex-shrink-0">
                 <Heart className="w-8 h-8" />
               </div>
@@ -119,7 +119,7 @@ export default async function Home() {
                 <p className="text-amber-100">Each rug is meticulously woven by skilled artisans using traditional techniques.</p>
               </div>
             </div>
-            <div className="flex items-start space-x-4">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left space-y-4 sm:space-y-0 sm:space-x-4">
               <div className="bg-white/20 p-4 rounded-lg backdrop-blur-sm flex-shrink-0">
                 <Shield className="w-8 h-8" />
               </div>
@@ -128,7 +128,7 @@ export default async function Home() {
                 <p className="text-amber-100">We use only the finest materials to ensure durability and lasting beauty.</p>
               </div>
             </div>
-            <div className="flex items-start space-x-4">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left space-y-4 sm:space-y-0 sm:space-x-4">
               <div className="bg-white/20 p-4 rounded-lg backdrop-blur-sm flex-shrink-0">
                 <Award className="w-8 h-8" />
               </div>
@@ -198,7 +198,7 @@ export default async function Home() {
                 What Our <span className="text-amber-700">Customers Say</span>
               </h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Don't just take our word for it. Here's what our satisfied customers have to say.
+                Don&apos;t just take our word for it. Here&apos;s what our satisfied customers have to say.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
