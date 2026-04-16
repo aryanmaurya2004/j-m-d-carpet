@@ -7,22 +7,25 @@ interface TestimonialCardProps {
 }
 
 export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
+  const rating = typeof testimonial.rating === 'number' ? testimonial.rating : 5;
+  const imageUrl = testimonial.customer_image || 'https://images.pexels.com/photos/1743231/pexels-photo-1743231.jpeg';
+
   return (
     <div className="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow duration-300 relative">
       <Quote className="absolute top-4 right-4 w-12 h-12 text-amber-200 opacity-50" />
       <div className="flex items-center space-x-4 mb-4">
         <div className="relative w-16 h-16 rounded-full overflow-hidden flex-shrink-0 border-2 border-amber-500">
           <Image
-            src={testimonial.customer_image}
-            alt={testimonial.customer_name}
+            src={imageUrl}
+            alt={testimonial.customer_name || 'Customer'}
             fill
             className="object-cover"
             sizes="64px"
           />
         </div>
         <div>
-          <h4 className="font-semibold text-gray-900">{testimonial.customer_name}</h4>
-          <p className="text-sm text-gray-500">{testimonial.customer_location}</p>
+          <h4 className="font-semibold text-gray-900">{testimonial.customer_name || 'Anonymous'}</h4>
+          <p className="text-sm text-gray-500">{testimonial.customer_location || 'Verified Buyer'}</p>
         </div>
       </div>
       <div className="flex mb-3">
@@ -30,14 +33,14 @@ export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
           <Star
             key={i}
             className={`w-5 h-5 ${
-              i < testimonial.rating
+              i < rating
                 ? 'text-amber-500 fill-amber-500'
                 : 'text-gray-300'
             }`}
           />
         ))}
       </div>
-      <p className="text-gray-700 leading-relaxed italic">&quot;{testimonial.review_text}&quot;</p>
+      <p className="text-gray-700 leading-relaxed italic">&quot;{testimonial.review_text || 'No review text provided.'}&quot;</p>
     </div>
   );
 }

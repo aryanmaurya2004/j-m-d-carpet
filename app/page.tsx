@@ -9,48 +9,63 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 async function getFeaturedProducts() {
-  const { data, error } = await supabase
-    .from('products')
-    .select('*')
-    .eq('featured', true)
-    .eq('in_stock', true)
-    .limit(6);
+  try {
+    const { data, error } = await supabase
+      .from('products')
+      .select('*')
+      .eq('featured', true)
+      .eq('in_stock', true)
+      .limit(6);
 
-  if (error) {
-    console.error('Error fetching featured products:', error);
+    if (error) {
+      console.error('Error fetching featured products:', error);
+      return [];
+    }
+
+    return data || [];
+  } catch (err) {
+    console.error('Exception in getFeaturedProducts:', err);
     return [];
   }
-
-  return data || [];
 }
 
 async function getCategories() {
-  const { data, error } = await supabase
-    .from('categories')
-    .select('*')
-    .limit(3);
+  try {
+    const { data, error } = await supabase
+      .from('categories')
+      .select('*')
+      .limit(3);
 
-  if (error) {
-    console.error('Error fetching categories:', error);
+    if (error) {
+      console.error('Error fetching categories:', error);
+      return [];
+    }
+
+    return data || [];
+  } catch (err) {
+    console.error('Exception in getCategories:', err);
     return [];
   }
-
-  return data || [];
 }
 
 async function getTestimonials() {
-  const { data, error } = await supabase
-    .from('testimonials')
-    .select('*')
-    .order('created_at', { ascending: false })
-    .limit(3);
+  try {
+    const { data, error } = await supabase
+      .from('testimonials')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(3);
 
-  if (error) {
-    console.error('Error fetching testimonials:', error);
+    if (error) {
+      console.error('Error fetching testimonials:', error);
+      return [];
+    }
+
+    return data || [];
+  } catch (err) {
+    console.error('Exception in getTestimonials:', err);
     return [];
   }
-
-  return data || [];
 }
 
 export default async function Home() {
