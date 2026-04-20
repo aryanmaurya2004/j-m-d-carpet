@@ -9,10 +9,13 @@ export default function Navbar() {
 
   const navLinks = [
     { href: '/', label: 'Home' },
+    { href: '/categories', label: 'Categories' },
     { href: '/gallery', label: 'Gallery' },
-    { href: '/about', label: 'About Us' },
+    { href: '/testimonials', label: 'Testimonials' },
+    { href: '/about', label: 'About' },
     { href: '/contact', label: 'Contact' },
   ];
+
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">

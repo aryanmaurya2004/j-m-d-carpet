@@ -157,17 +157,33 @@ export default async function Home() {
       </section>
 
       {categories.length > 0 && (
-        <section className="py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Browse by <span className="text-amber-700">Category</span>
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Explore our diverse range of handmade rugs, from timeless traditional designs to contemporary masterpieces.
-              </p>
+        <section className="py-24 relative overflow-hidden">
+          {/* Background Decorations */}
+          <div className="absolute top-0 left-0 w-96 h-96 bg-amber-100/50 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-gray-100 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+          
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+              <div className="max-w-2xl">
+                <div className="inline-block px-4 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-sm font-bold uppercase tracking-wider mb-4">
+                  Curated Collections
+                </div>
+                <h2 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
+                  Shop by <span className="text-amber-700 italic">Category</span>
+                </h2>
+                <p className="mt-6 text-lg text-gray-600 leading-relaxed">
+                  Discover our diverse range of handmade rugs, from timeless traditional designs to contemporary masterpieces. Each category tells a unique story of craftsmanship.
+                </p>
+              </div>
+              <Link 
+                href="/gallery" 
+                className="group flex items-center space-x-2 text-amber-900 font-bold text-lg hover:text-amber-700 transition-colors"
+              >
+                <span>View All Categories</span>
+                <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+              </Link>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
               {categories.map((category) => (
                 <CategoryCard key={category.id} category={category} />
               ))}
@@ -175,6 +191,7 @@ export default async function Home() {
           </div>
         </section>
       )}
+
 
       {featuredProducts.length > 0 && (
         <section className="py-20 bg-white">
@@ -206,17 +223,31 @@ export default async function Home() {
       )}
 
       {testimonials.length > 0 && (
-        <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        <section id="testimonials" className="py-24 bg-gray-50/50 relative overflow-hidden">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-[0.03] pointer-events-none">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="black" strokeWidth="1"/>
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#grid)" />
+            </svg>
+          </div>
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="text-center mb-20">
+              <div className="inline-block px-4 py-1.5 rounded-full bg-white border border-gray-200 text-gray-600 text-sm font-bold uppercase tracking-wider mb-4 shadow-sm">
+                Trusted by Thousands
+              </div>
+              <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
                 What Our <span className="text-amber-700">Customers Say</span>
               </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Don&apos;t just take our word for it. Here&apos;s what our satisfied customers have to say.
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Hear directly from our global community of rug enthusiasts who have transformed their homes with our handcrafted masterpieces.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
               {testimonials.map((testimonial) => (
                 <TestimonialCard key={testimonial.id} testimonial={testimonial} />
               ))}
@@ -224,6 +255,7 @@ export default async function Home() {
           </div>
         </section>
       )}
+
 
       <section className="py-20 bg-gradient-to-r from-amber-700 to-amber-900 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
