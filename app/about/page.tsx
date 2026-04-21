@@ -1,189 +1,246 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { Heart, Users, Award, Target, Sparkles, ArrowRight } from 'lucide-react';
+import { Heart, Users, Award, Target, Sparkles, ArrowRight, History, Zap } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function About() {
+  const stats = [
+    { label: 'Years of Heritage', value: '35+', icon: History },
+    { label: 'Master Artisans', value: '50+', icon: Users },
+    { label: 'Unique Masterpieces', value: '500+', icon: Sparkles },
+    { label: 'Global Collectors', value: '10K+', icon: Heart },
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 via-white to-gray-50">
+    <div className="min-h-screen bg-[#FFFDF9]">
       <Navbar />
 
-      <section className="relative py-20 bg-gradient-to-r from-amber-700 to-amber-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">About Us</h1>
-          <p className="text-xl text-amber-100 max-w-2xl mx-auto">
-            Crafting timeless beauty through the art of traditional rug making
-          </p>
+      {/* Premium Hero Header */}
+      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-amber-950">
+        <Image
+          src="/hero.png"
+          alt="About Us Banner"
+          fill
+          className="object-cover opacity-30"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-amber-950/80" />
+        
+        <div className="relative z-10 text-center px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+             <div className="inline-flex items-center space-x-3 text-amber-500 mb-6">
+                <div className="w-12 h-px bg-amber-500" />
+                <span className="text-xs font-black uppercase tracking-[0.4em]">Our Legacy</span>
+                <div className="w-12 h-px bg-amber-500" />
+             </div>
+             <h1 className="text-5xl sm:text-6xl md:text-8xl font-serif font-black text-white tracking-tighter leading-none">
+                Born From <br />
+                <span className="text-amber-500 italic">Tradition</span>
+             </h1>
+          </motion.div>
         </div>
       </section>
 
-      <section className="py-20">
+      {/* Main Story Section */}
+      <section className="py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-flex items-center space-x-2 bg-amber-100 text-amber-800 px-4 py-2 rounded-full mb-6">
-                <Sparkles className="w-4 h-4" />
-                <span className="text-sm font-medium">Our Story</span>
-              </div>
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                Weaving Dreams Since <span className="text-amber-700">1985</span>
-              </h2>
-              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                For over three decades, Artisan Rugs has been at the forefront of handmade rug craftsmanship.
-                What started as a small family workshop has grown into a renowned name in the world of artisan textiles.
-              </p>
-              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                Our journey began with a simple vision: to preserve the ancient art of rug making while creating pieces
-                that blend seamlessly with modern aesthetics. Each rug that leaves our workshop is a testament to the
-                skill, patience, and dedication of our master artisans.
-              </p>
-              <p className="text-lg text-gray-700 leading-relaxed">
-                We source the finest materials from around the world and employ traditional techniques passed down through
-                generations. Every knot, every thread, and every pattern is carefully crafted to create rugs that are not
-                just floor coverings, but works of art that tell a story.
-              </p>
-            </div>
-            <div className="relative h-[600px] rounded-lg overflow-hidden shadow-2xl">
-              <Image
-                src=" https://i.pinimg.com/1200x/6c/0f/4d/6c0f4d5ee5ca610569ced2de2d1efe7f.jpg"
-                alt="Artisan at work"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Our <span className="text-amber-700">Values</span>
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              The principles that guide everything we do
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full mb-6 shadow-lg">
-                <Heart className="w-10 h-10 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Craftsmanship</h3>
-              <p className="text-gray-600">
-                Every rug is handcrafted with meticulous attention to detail and unwavering commitment to quality.
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full mb-6 shadow-lg">
-                <Users className="w-10 h-10 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Community</h3>
-              <p className="text-gray-600">
-                We support local artisans and their families, ensuring fair wages and sustainable livelihoods.
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full mb-6 shadow-lg">
-                <Award className="w-10 h-10 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Excellence</h3>
-              <p className="text-gray-600">
-                We never compromise on quality, using only the finest materials and time-tested techniques.
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full mb-6 shadow-lg">
-                <Target className="w-10 h-10 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Innovation</h3>
-              <p className="text-gray-600">
-                While honoring tradition, we embrace contemporary designs to meet modern aesthetic preferences.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="relative h-[500px] rounded-lg overflow-hidden shadow-2xl order-2 lg:order-1">
-              <Image
-                src="https://i.pinimg.com/1200x/ad/71/25/ad712546693e604a3822003497decfc7.jpg"
-                alt="Rug weaving process"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </div>
-            <div className="order-1 lg:order-2">
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                The Art of <span className="text-amber-700">Rug Making</span>
-              </h2>
-              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                Our rug-making process is a labor of love that can take weeks or even months to complete.
-                It begins with carefully selecting premium wool, silk, or cotton, each chosen for its unique
-                properties and suitability to the design.
-              </p>
-              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                The wool is then dyed using both natural and synthetic dyes to achieve vibrant, long-lasting
-                colors. Our master weavers use traditional hand-knotting techniques, with some of our finest
-                pieces containing over 300 knots per square inch.
-              </p>
-              <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-                After weaving, each rug undergoes a finishing process that includes washing, trimming, and
-                quality inspection. Only rugs that meet our exacting standards bear the Artisan Rugs name.
-              </p>
-              <div className="grid grid-cols-2 gap-6">
-                <div className="bg-white rounded-lg shadow-md p-6">
-                  <p className="text-4xl font-bold text-amber-700 mb-2">35+</p>
-                  <p className="text-gray-600">Years of Excellence</p>
-                </div>
-                <div className="bg-white rounded-lg shadow-md p-6">
-                  <p className="text-4xl font-bold text-amber-700 mb-2">500+</p>
-                  <p className="text-gray-600">Unique Designs</p>
-                </div>
-                <div className="bg-white rounded-lg shadow-md p-6">
-                  <p className="text-4xl font-bold text-amber-700 mb-2">50+</p>
-                  <p className="text-gray-600">Master Artisans</p>
-                </div>
-                <div className="bg-white rounded-lg shadow-md p-6">
-                  <p className="text-4xl font-bold text-amber-700 mb-2">10K+</p>
-                  <p className="text-gray-600">Happy Customers</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-gradient-to-r from-amber-700 to-amber-900 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Experience the Artisan Difference
-          </h2>
-          <p className="text-xl text-amber-100 mb-8">
-            Discover our collection and bring timeless elegance to your home.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/gallery"
-              className="inline-flex items-center justify-center space-x-2 bg-white text-amber-900 px-8 py-4 rounded-md hover:bg-gray-100 transition-all duration-200 font-semibold shadow-xl"
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative"
             >
-              <span>View Collection</span>
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center space-x-2 bg-transparent border-2 border-white text-white px-8 py-4 rounded-md hover:bg-white hover:text-amber-900 transition-all duration-200 font-semibold"
-            >
-              <span>Get in Touch</span>
-            </Link>
+              <div className="relative z-10 aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl">
+                 <Image
+                   src="/artisan.png"
+                   alt="Artisan at work"
+                   fill
+                   className="object-cover"
+                 />
+              </div>
+              {/* Decorative Frame */}
+              <div className="absolute top-10 -left-10 w-full h-full border-2 border-amber-900/10 rounded-[3rem] -z-0" />
+              <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-amber-700/10 rounded-full blur-3xl -z-0" />
+            </motion.div>
+
+            <div className="space-y-10">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <h2 className="text-4xl sm:text-5xl font-serif font-black text-amber-950 leading-tight mb-8">
+                   Weaving History <br />
+                   <span className="text-amber-700 italic text-3xl sm:text-4xl">One Knot At A Time</span>
+                </h2>
+                <div className="space-y-6 text-lg text-amber-900/70 font-medium leading-relaxed">
+                   <p>
+                     Since 1985, J.M.D. Carpet has stood as a bastion of traditional textile excellence. 
+                     What began as a small family collective in the heart of Bhadohi has evolved into 
+                     a global name synonymous with museum-quality handcrafted rugs.
+                   </p>
+                   <p>
+                     Our philosophy is simple: we believe that a truly great rug is a living history book. 
+                     It carries the breath of the weaver, the spirit of the materials, and the timeless 
+                     geometry of patterns passed down through generations.
+                   </p>
+                   <p>
+                     We source only the finest hand-spun wool and organic silk, dyed with natural mineral 
+                     pigments to ensure that the colors don't just stay, but deepen with character over time.
+                   </p>
+                </div>
+              </motion.div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                 {stats.map((stat, i) => (
+                    <motion.div 
+                      key={i}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1 }}
+                      className="bg-white p-8 rounded-3xl border border-amber-100 shadow-sm hover:shadow-xl transition-all group"
+                    >
+                       <stat.icon className="w-8 h-8 text-amber-700 mb-4 transform group-hover:scale-110 transition-transform" />
+                       <p className="text-3xl font-serif font-black text-amber-950 mb-1">{stat.value}</p>
+                       <p className="text-[10px] uppercase font-black tracking-widest text-amber-900/40">{stat.label}</p>
+                    </motion.div>
+                 ))}
+              </div>
+            </div>
           </div>
+        </div>
+      </section>
+
+      {/* Values Section */}
+      <section className="py-32 bg-amber-950 overflow-hidden relative">
+         <div className="absolute right-0 top-0 w-1/2 h-full bg-white opacity-[0.02] -skew-x-12 translate-x-1/2" />
+         
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="text-center max-w-3xl mx-auto mb-20">
+               <span className="text-amber-500 font-black text-[10px] uppercase tracking-[0.5em] mb-4 block">Our Soul</span>
+               <h2 className="text-4xl sm:text-5xl font-serif font-black text-white leading-tight">Values That Guide Our Hands</h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+               {[
+                 { title: 'Authenticity', icon: Award, desc: 'Original designs that honor traditional roots without compromise.' },
+                 { title: 'Ethical Soul', icon: Heart, desc: 'Supporting our weaver communities with fair-trade and health initiatives.' },
+                 { title: 'Excellence', icon: Zap, desc: 'If it is not perfect, it does not leave our showroom floor.' },
+                 { title: 'Innovation', icon: Target, desc: 'Merging ancient techniques with contemporary aesthetic palettes.' }
+               ].map((value, i) => (
+                 <motion.div 
+                   key={i}
+                   initial={{ opacity: 0, y: 20 }}
+                   whileInView={{ opacity: 1, y: 0 }}
+                   viewport={{ once: true }}
+                   transition={{ delay: i * 0.1 }}
+                   className="p-10 rounded-[2.5rem] bg-white/5 border border-white/10 backdrop-blur-xl hover:bg-white/10 transition-all duration-500 group"
+                 >
+                    <div className="w-14 h-14 rounded-2xl bg-amber-500 flex items-center justify-center text-amber-950 mb-8 group-hover:rotate-12 transition-transform">
+                       <value.icon className="w-7 h-7" />
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-4 tracking-tight">{value.title}</h3>
+                    <p className="text-amber-100/60 leading-relaxed text-sm font-medium">{value.desc}</p>
+                 </motion.div>
+               ))}
+            </div>
+         </div>
+      </section>
+
+      {/* Process Section */}
+      <section id="process" className="py-32">
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+               <div className="order-2 lg:order-1 space-y-8">
+                  <div>
+                    <span className="text-amber-700 font-black text-[10px] uppercase tracking-[0.5em] mb-4 block">The Alchemist Path</span>
+                    <h2 className="text-5xl font-serif font-black text-amber-950 leading-tight">The 60-Day <span className="text-amber-700 italic">Evolution</span></h2>
+                  </div>
+                  
+                  <div className="space-y-8">
+                     {[
+                       { step: '01', title: 'Soul Sourcing', desc: 'Selecting premium highland wool and hand-spun silk.' },
+                       { step: '02', title: 'Natural Dyeing', desc: 'Infusing colors from roots, minerals, and petals.' },
+                       { step: '03', title: 'Master Knotting', desc: '600,000+ hand-tied knots per masterpiece.' },
+                       { step: '04', title: 'Grand Reveal', desc: 'Washing, trimming, and a 12-point quality blessing.' }
+                     ].map((item, i) => (
+                        <div key={i} className="flex items-start space-x-6 group">
+                           <span className="text-4xl font-serif font-black text-amber-900/10 group-hover:text-amber-700/20 transition-colors">{item.step}</span>
+                           <div>
+                              <h4 className="text-lg font-black text-amber-950 mb-1">{item.title}</h4>
+                              <p className="text-sm text-amber-900/60 font-medium leading-relaxed">{item.desc}</p>
+                           </div>
+                        </div>
+                     ))}
+                  </div>
+
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center space-x-4 bg-amber-900 text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest shadow-2xl hover:bg-amber-950 transition-all"
+                  >
+                     <span>Book a Showroom Visit</span>
+                     <ArrowRight className="w-5 h-5" />
+                  </Link>
+               </div>
+
+               <motion.div
+                 initial={{ opacity: 0, scale: 0.9 }}
+                 whileInView={{ opacity: 1, scale: 1 }}
+                 viewport={{ once: true }}
+                 className="order-1 lg:order-2 relative aspect-square rounded-full overflow-hidden border-8 border-amber-50 shadow-2xl"
+               >
+                  <Image
+                    src="https://images.pexels.com/photos/1743231/pexels-photo-1743231.jpeg"
+                    alt="The rug process"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-amber-950/40 to-transparent" />
+               </motion.div>
+            </div>
+         </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 bg-[#F9F6F1]">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+             <h2 className="text-5xl font-serif font-black text-amber-950 mb-8 leading-tight">
+               Want to see the<br />
+               <span className="text-amber-700 italic">Magic Live?</span>
+             </h2>
+             <p className="text-xl text-amber-900/60 mb-12 font-medium leading-relaxed">
+               Visit our flagship showroom to feel the texture, see the vibrant natural colors, and meet the artisans who keep this heritage alive.
+             </p>
+             <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                <Link
+                  href="/gallery"
+                  className="bg-amber-800 text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl hover:bg-amber-900"
+                >
+                  View Collection
+                </Link>
+                <Link
+                  href="/contact"
+                  className="bg-white border border-amber-900/10 text-amber-950 px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-amber-50"
+                >
+                  Contact Us
+                </Link>
+             </div>
+          </motion.div>
         </div>
       </section>
 
@@ -191,3 +248,4 @@ export default function About() {
     </div>
   );
 }
+

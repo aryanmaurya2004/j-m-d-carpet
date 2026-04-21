@@ -1,7 +1,10 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { Category } from '@/lib/supabase';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface CategoryCardProps {
   category: Category;
@@ -9,32 +12,56 @@ interface CategoryCardProps {
 
 export default function CategoryCard({ category }: CategoryCardProps) {
   return (
-    <Link href={`/gallery?category=${category.slug}`} className="group block h-full">
-      <div className="relative h-96 md:h-[450px] rounded-2xl overflow-hidden shadow-xl group-hover:shadow-2xl transition-all duration-500 border border-white/20">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      className="group relative h-[500px] rounded-[2.5rem] overflow-hidden"
+    >
+      <Link href={`/gallery?category=${category.slug}`} className="block h-full">
         <Image
           src={category.image_url}
           alt={category.name}
           fill
-          className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+          className="object-cover transition-transform duration-1000 group-hover:scale-110"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-75 transition-opacity duration-300" />
         
-        {/* Glassmorphism content */}
-        <div className="absolute inset-x-4 bottom-4 p-6 rounded-xl backdrop-blur-md bg-white/10 border border-white/20 text-white transform group-hover:-translate-y-2 transition-transform duration-500">
-          <h3 className="text-2xl md:text-3xl font-bold mb-2 tracking-tight">
-            {category.name}
-          </h3>
-          <p className="text-gray-200 text-sm md:text-base mb-4 opacity-0 group-hover:opacity-100 transition-all duration-500 line-clamp-2 max-h-0 group-hover:max-h-20">
-            {category.description}
-          </p>
-          <div className="flex items-center space-x-2 text-amber-400 font-semibold text-sm uppercase tracking-wider">
-            <span>Explore Collection</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
+        {/* Dynamic Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-amber-950/90 via-amber-950/40 to-transparent group-hover:from-amber-900/95 transition-all duration-500" />
+        
+        <div className="absolute inset-0 p-8 flex flex-col justify-end">
+          <div className="space-y-4">
+            <div className="flex items-center space-x-2 text-amber-400">
+               <Sparkles className="w-4 h-4" />
+               <span className="text-[10px] font-black uppercase tracking-[0.3em]">Exclusive Category</span>
+            </div>
+            
+            <h3 className="text-4xl font-serif font-black text-white leading-tight">
+              {category.name}
+            </h3>
+            
+            <p className="text-amber-50/70 text-sm leading-relaxed max-w-xs transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+              {category.description || 'Explore our uniquely handcrafted rug masterpieces for your space.'}
+            </p>
+            
+            <div className="pt-4 overflow-hidden">
+               <div className="flex items-center space-x-3 text-white font-bold text-xs uppercase tracking-widest transform -translate-x-8 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-700">
+                  <span>Discover Now</span>
+                  <div className="w-12 h-px bg-white/30 group-hover:w-20 transition-all duration-500" />
+                  <ArrowRight className="w-4 h-4" />
+               </div>
+            </div>
           </div>
         </div>
-      </div>
-    </Link>
+
+        {/* Decorative Badge */}
+        <div className="absolute top-8 right-8 w-12 h-12 rounded-full glass flex items-center justify-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+           <ArrowRight className="w-5 h-5 text-amber-900 -rotate-45" />
+        </div>
+      </Link>
+    </motion.div>
   );
 }
+
 

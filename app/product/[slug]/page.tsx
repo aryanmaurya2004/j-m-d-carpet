@@ -1,11 +1,11 @@
 import { notFound } from 'next/navigation';
-import Image from 'next/image';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ProductCard from '@/components/ProductCard';
-import { ArrowLeft, MessageCircle, Check, Ruler, Palette, Package } from 'lucide-react';
+import { ArrowLeft, Share2 } from 'lucide-react';
+import ProductDetailClient from './ProductDetailClient';
 
 async function getProduct(slug: string) {
   const { data, error } = await supabase
@@ -14,10 +14,7 @@ async function getProduct(slug: string) {
     .eq('slug', slug)
     .maybeSingle();
 
-  if (error || !data) {
-    return null;
-  }
-
+  if (error || !data) return null;
   return data;
 }
 
@@ -30,10 +27,7 @@ async function getRelatedProducts(categoryId: string, currentProductId: string) 
     .eq('in_stock', true)
     .limit(3);
 
-  if (error) {
-    return [];
-  }
-
+  if (error) return [];
   return data || [];
 }
 
@@ -46,142 +40,46 @@ export default async function ProductDetails({ params }: { params: { slug: strin
 
   const relatedProducts = await getRelatedProducts(product.category_id, product.id);
 
-  const whatsappMessage = `Hi, I'm interested in ${product.name} (${product.size}). Price: $${product.price}`;
-  const whatsappUrl = `https://wa.me/15551234567?text=${encodeURIComponent(whatsappMessage)}`;
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 via-white to-gray-50">
+    <div className="min-h-screen bg-[#FFFDF9] selection:bg-amber-200">
       <Navbar />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
         <Link
           href="/gallery"
-          className="inline-flex items-center space-x-2 text-gray-600 hover:text-amber-700 mb-8 transition-colors"
+          className="group inline-flex items-center space-x-3 text-amber-900/40 hover:text-amber-700 mb-12 transition-all font-black text-[10px] uppercase tracking-[0.3em]"
         >
-          <ArrowLeft className="w-5 h-5" />
-          <span className="font-medium">Back to Gallery</span>
+          <div className="w-8 h-8 rounded-full border border-amber-100 flex items-center justify-center group-hover:bg-amber-700 group-hover:border-amber-700 group-hover:text-white transition-all">
+            <ArrowLeft className="w-4 h-4" />
+          </div>
+          <span>Return to Gallery</span>
         </Link>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-          <div className="space-y-4">
-            <div className="relative h-[500px] rounded-lg overflow-hidden shadow-2xl bg-gray-100">
-              <Image
-                src={product.image_url}
-                alt={product.name}
-                fill
-                className="object-cover"
-                priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </div>
-            {product.gallery_images && product.gallery_images.length > 0 && (
-              <div className="grid grid-cols-4 gap-4">
-                {product.gallery_images.map((image: string, index: number) => (
-                  <div key={index} className="relative h-24 rounded-lg overflow-hidden shadow-md bg-gray-100 cursor-pointer hover:opacity-75 transition-opacity">
-                    <Image
-                      src={image}
-                      alt={`${product.name} - View ${index + 1}`}
-                      fill
-                      className="object-cover"
-                      sizes="150px"
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+        {/* Client Component for Interactive/Animated Parts */}
+        <ProductDetailClient product={product} />
 
-          <div>
-            {product.categories && (
-              <div className="mb-4">
-                <span className="inline-block bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm font-medium">
-                  {product.categories.name}
-                </span>
-              </div>
-            )}
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              {product.name}
-            </h1>
-            <div className="flex items-baseline mb-6">
-              <span className="text-5xl font-bold text-amber-700">${product.price}</span>
-              {!product.in_stock && (
-                <span className="ml-4 text-red-600 font-semibold">Out of Stock</span>
-              )}
-            </div>
-
-            <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Product Details</h2>
-              <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <Ruler className="w-5 h-5 text-amber-700 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold text-gray-900">Size</p>
-                    <p className="text-gray-600">{product.size}</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <Package className="w-5 h-5 text-amber-700 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold text-gray-900">Material</p>
-                    <p className="text-gray-600">{product.material}</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <Palette className="w-5 h-5 text-amber-700 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="font-semibold text-gray-900">Design Style</p>
-                    <p className="text-gray-600">{product.design_style}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Description</h2>
-              <p className="text-gray-700 leading-relaxed">{product.description}</p>
-            </div>
-
-            <div className="bg-gradient-to-r from-amber-700 to-amber-900 rounded-lg shadow-lg p-6 text-white mb-6">
-              <div className="flex items-start space-x-3 mb-4">
-                <Check className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                <p>Handcrafted by skilled artisans</p>
-              </div>
-              <div className="flex items-start space-x-3 mb-4">
-                <Check className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                <p>Premium quality materials</p>
-              </div>
-              <div className="flex items-start space-x-3">
-                <Check className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                <p>Unique design and craftsmanship</p>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center space-x-2 bg-green-600 text-white px-8 py-4 rounded-md hover:bg-green-700 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl"
-              >
-                <MessageCircle className="w-5 h-5" />
-                <span>Order via WhatsApp</span>
-              </a>
-              <Link
-                href="/contact"
-                className="w-full inline-flex items-center justify-center space-x-2 bg-amber-700 text-white px-8 py-4 rounded-md hover:bg-amber-800 transition-all duration-200 font-semibold shadow-lg hover:shadow-xl"
-              >
-                <span>Request Custom Quote</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-
+        {/* Related Products Section */}
         {relatedProducts.length > 0 && (
-          <section className="py-12 border-t border-gray-200">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-              Related <span className="text-amber-700">Products</span>
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <section className="py-24 border-t border-amber-950/5 mt-24">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+               <div className="max-w-2xl">
+                  <div className="flex items-center space-x-3 text-amber-700 mb-6">
+                    <div className="w-10 h-px bg-amber-700" />
+                    <span className="text-[10px] font-black uppercase tracking-[0.4em]">Suggested Pairings</span>
+                  </div>
+                  <h2 className="text-4xl md:text-6xl font-serif font-black text-amber-950 leading-tight">
+                    Complement Your <span className="text-amber-700 italic">Space</span>
+                  </h2>
+               </div>
+               <Link href="/gallery" className="group flex items-center space-x-4 text-amber-950 font-black text-xs uppercase tracking-widest">
+                  <span>Explore Collection</span>
+                  <div className="w-12 h-12 rounded-full border border-amber-900/20 flex items-center justify-center group-hover:bg-amber-900 group-hover:text-white transition-all">
+                    <Share2 className="w-5 h-5" />
+                  </div>
+               </Link>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
               {relatedProducts.map((relatedProduct) => (
                 <ProductCard key={relatedProduct.id} product={relatedProduct} />
               ))}
